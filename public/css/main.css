@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+
+body{
+  font-family: 'Itim', cursive;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  --bs-gutter-x: -0.5rem;
+  --bs-gutter-y: 0;
+}
+
+.bg-main{
+  background-color: #435d7d;
+}
+.bg-add{
+  background-color: #28a745
+}
+

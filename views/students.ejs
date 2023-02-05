@@ -1,0 +1,52 @@
+<div class="container mt-3 mb-2">
+  <form class="d-flex" role="search" action="/students" method="GET">
+    <input class="form-control form-control-lg me-2" type="search" name="name" value="<%= query.name %>" placeholder="Search.." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+  </form>
+</div>
+<div class="container">
+  <div class="container d-flex justify-content-between align-items-center bg-main p-3">
+    <div>
+    <h3 class="text-light display-5"><i class="bi bi-people-fill me-3"></i>Students</h3>
+  </div>
+    <div>
+    <a href="/students/new" class="btn btn-primary text-white fs-3">
+      <i class="bi bi-plus-circle me-2"></i>Add New Student</a>
+  </div>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="fs-4">
+        <th scope="col">Name</th>
+        <th scope="col">Roll No</th>
+        <th scope="col">Class</th>
+        <th scope="col">Age</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Options</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider options">
+      <% students.forEach(student => { %>
+      <tr class="fs-5">
+        <td><%= student.name %></td>
+        <td><%= student.roll_no %></td>
+        <td><%= student.class %></td>
+        <td><%= student.age %></td>
+        <td><%= student.gender %></td>
+        <td><%= student.grade %></td>
+        <td>
+          <a class="text-primary mx-1" href="/students/details/<%=student.id %>"><i class="bi bi-eye-fill">View</i></a>
+          <a class="text-secondary mx-1" href="/students/edit/<%= student.id %> "><i class="bi bi-pen-fill">Edit</i></a>
+          <a class="text-danger mx-1" href="/students"><i data-id="<%= student.id %>" class="bi bi-trash3-fill">Delete</i></a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+<h3 class="text-center mt-5">Edit Student Details</h3>
+
+<div class="container mt-3">
+<form action="/students/<%= student.id %>?_method=PUT" method="POST">
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="name" id="name" placeholder="Name..." value="<%= student.name %>" required>
+  <label for="name">Name</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="rollNo" id="rollNo" placeholder="Roll No." value="<%= student.roll_no %>" required>
+  <label for="rollNo">Roll No.</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="class" id="class" placeholder="Class" value="<%= student.class %>" required>
+  <label for="class">Class</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="age" id="age" placeholder="Age" value="<%= student.age %>" required>
+  <label for="age">Age</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="gender" id="gender" placeholder="Gender" value="<%= student.gender %>" required>
+  <label for="gender">Gender</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" name="grade" id="grade" placeholder="Grade" value="<%= student.grade %>" required>
+  <label for="grade">Grade</label>
+</div>
+  <div class="form-floating mb-3">
+    <button type="submit" class="form-control btn btn-dark p-0">UPDATE</button>
+  </div>
+</form>
+</div>

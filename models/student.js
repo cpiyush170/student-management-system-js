@@ -1,12 +1,29 @@
 // we need to store info about student, so create a schema
-
 const mongoose = require('mongoose')
 
 // creating schema for student
 const studentSchema = new mongoose.Schema({
-  name: String,
-  class: String,
-  roll_no: Number
+  name: {
+    type: String,
+    required: true
+  },
+  roll_no: {
+    type: Number,
+    required: true,
+  },
+  class: {
+    type: String,
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true
+  },
+  gender: {
+    type: String,
+    required: true
+  },
+  grade: String
 })
 
 // compiling the schema into model

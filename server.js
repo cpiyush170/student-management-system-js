@@ -1,52 +1,68 @@
-const express = require('express');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const methodOverride = require('method-override')
+const expressLayouts = require("express-ejs-layouts");
 const app = express();
-const expressLayouts = require('express-ejs-layouts')
+require('dotenv').config()
+
 
 // specifying port for our application
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
+
 // importing the routes
-const indexRoute = require('./routes/index')
-const studentRoutes = require('./routes/student')
+const indexRoute = require("./routes/index");
+const studentRoutes = require("./routes/student");
+const classesRoutes = require("./routes/classes")
+const teachersRoutes = require("./routes/teachers")
+const subjectsRoutes = require("./routes/subjects")
 
 // view engine configuration
 // setting ejs as our view engine
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 // setting view directory location for app
 // where __dirname represents current directory in which
 // script is being executed
-
-app.set('views', __dirname+'/views');
+app.set("views", path.join(__dirname, "views"));
 //setting main as our default layout for app
-app.set('layout', 'layouts/main');
+app.set("layout", "layouts/main");
 // adding expresslayout middleware
-app.use(expressLayouts)
+app.use(expressLayouts);
 // to serve static files
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, "public")));
+app.use(logger("dev"));
+app.use(methodOverride('_method'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // importing mongoose library
-const mongoose = require('mongoose');
-
-// uri for our mongodb atlas cluster
-let uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.pnum9.mongodb.net/?retryWrites=true&w=majority";
+const mongoose = require("mongoose");
 
 
+// uri for our mongodb atlas cluster coming from env
+let uri = process.env.MONGODB_URI
 // to remove warning
-mongoose.set('strictQuery', false)
-
+mongoose.set("strictQuery", false);
 // mongoose.connect(uri, options): it returns promise
-
-mongoose.connect(uri, {dbName: 'student_db'}).then(() =>{
-  console.log('database connection successful');
-}).catch(err => {
-  console.log('err connecting db due to: ', err)
-})
-
+mongoose
+  .connect(uri, { dbName: "student_db" })
+  .then(() => {
+    console.log("database connection successful");
+  })
+  .catch((err) => {
+    console.log("err connecting db due to: ", err);
+  });
 
 // for homepage, use this router
-app.use('/', indexRoute);
-// for students routes forward request to it
-app.use('/students', studentRoutes);
-app.listen(port)
+app.use("/", indexRoute);
+// for students routes forward request to /students
+app.use("/students", studentRoutes);
+app.use("/classes", classesRoutes);
+app.use("/teachers", teachersRoutes);
+app.use("/subjects", subjectsRoutes);
 
-
+app.listen(port, () => {
+  console.log(`server is up on port ${port}`)
+});
 
 
