@@ -1,0 +1,141 @@
+<div class="container mt-3 mb-2">
+  <form class="d-flex" role="search" action="/classes" method="GET">
+    <input class="form-control form-control-lg me-2" type="search" name="name" value="<%= query.name %>" placeholder="Search.." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+  </form>
+</div>
+<div class="container">
+  <div class="container d-flex justify-content-between align-items-center bg-main p-3">
+    <div>
+    <h3 class="text-light display-5"><i class="fa-solid fa-chalkboard me-2"></i>Classes</h3>
+  </div>
+    <div>
+    <a href="/classes/new" class="btn btn-primary text-white fs-3">
+      <i class="bi bi-plus-circle me-2"></i>Add New Class</a>
+  </div>
+  </div> 
+  <div class="container mt-3">
+      <div id="options" class="row mb-4">
+        <% classes.forEach(el =>{ %>
+          <div class="col col-4 mb-3 shadow-lg p-0 border rounded-4">
+            <div class="container d-flex flex-column justify-content-between align-items-center p-5 m-0">
+            <i class="fa-solid fa-chalkboard fs-3"></i>
+            <p class="display-5"> <%= el.name %> </p>
+          </div>
+          <div class="container d-flex justify-content-around p-2 border rounded-bottom-3">
+            <a class="text-primary" href="/classes/details/<%= el.id %>"><i class="bi bi-eye-fill btn">View</i></a>
+              <a class="text-secondary" href="/classes/edit/<%= el.id %>"><i class="bi bi-pen-fill btn">Edit</i></a>
+              <a class="text-danger btn"><i data-id="<%= el.id %>" class="bi bi-trash3-fill">Delete</i></a>
+          </div>
+          </div>
+        <% }) %>
+        
+      </div>
+        
+      </div>
+    
+    </div>
+    
+</div>
+</div>
+
+<script>
+
+deleteClass() // to delete student
+function deleteClass() {
+  let options = document.querySelector('#options')
+  let deleteId;
+  if(options !== null){
+  options.onclick = async function(e){
+    deleteId = e.target.getAttribute('data-id')
+    console.log(deleteId)
+  // if data id exist on target, then only delete
+    if (deleteId !== null) {
+      if (confirm('Are you sure you want to delete ? ')) {
+        // delete the record only when ok is clicked
+        let url = `/classes/${deleteId}`
+        let response = await fetch(url, {
+          method: 'DELETE'
+        })
+        let data = response.json();
+        if(data) window.location.reload();
+      }
+    }
+  else{
+    // when you cancel, do nothing
+  }
+  }
+  }
+}
+
+    // let numRows = 0;
+    //   let numCols = 3
+      
+    //   render();
+    //   function render(){
+    //     // calculate number of rows needed
+    //     numRows = Math.ceil(classes.length / numCols)
+
+    //     // create rows
+    //     for(let i = 0; i < numRows; i++){
+
+    //       let row = document.createElement('div')
+    //       row.classList.add('gap-4', 'mb-4')
+
+    //       // create cols
+    //       for(let j = 0; j < numCols; j++){
+    //         // calculating index for col
+    //         let index = i * numCols + j;
+
+    //         if (index >= classes.length) break;
+
+    //         let col = document.createElement('div')
+    //         col.classList.add('col', 'shadow-lg', 'p-0', 'border', 'rounded-4')
+
+    //         let containerInfo = document.createElement('div')
+    //         containerInfo.classList.add('container', 'd-flex', 'flex-column', 'justify-content-between', 'align-items-center', 'p-5', 'm-0')
+    //         col.appendChild(containerInfo)
+
+    //         let iconClass = document.createElement('i')
+    //         iconClass.classList.add('fa-solid', 'fa-chalkboard', 'fs-3')
+    //         let className = document.createElement('p')
+    //         className.classList.add('display-5')
+    //         className.innerText = classes[index].name;
+
+    //         containerInfo.appendChild(iconClass)
+    //         containerInfo.appendChild(className)
+
+    //         let containerOptions = document.createElement('div')
+    //         containerOptions.classList.add('container', 'd-flex', 'justify-content-around', 'p-2', 'border', 'rounded-bottom-3')
+
+    //         col.appendChild(containerOptions)
+
+    //         for(let i = 1; i <= 3; i++){
+    //           let viewLink = document.createElement('a')
+    //           let viewIcon = document.createElement('i')
+    //           if(i == 1){
+    //           viewLink.classList.add('text-primary')
+    //           viewIcon.classList.add('bi', 'bi-eye-fill')
+    //           viewIcon.textContent = 'View'
+    //           }
+    //           if(i == 2){
+    //           viewLink.classList.add('text-secondary')
+    //           viewIcon.classList.add('bi' ,'bi-pen-fill')
+    //           viewIcon.textContent = 'Edit'
+    //           }
+    //           if(i == 3){
+    //           viewLink.classList.add('text-danger')
+    //           viewIcon.classList.add('bi', 'bi-trash3-fill')
+    //           viewIcon.textContent = 'Delete'
+    //           }
+    //           viewLink.appendChild(viewIcon)
+    //           containerOptions.appendChild(viewLink)
+    //         }
+    //         row.appendChild(col)
+    //       }
+    //       document.querySelector('.class-container').appendChild(row);
+    //     }
+    //   }
+      
+</script>
+

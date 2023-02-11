@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 
 // importing the routes
 const indexRoute = require("./routes/index");
-const studentRoutes = require("./routes/student");
+const studentRoutes = require("./routes/students");
 const classesRoutes = require("./routes/classes")
 const teachersRoutes = require("./routes/teachers")
 const subjectsRoutes = require("./routes/subjects")
@@ -27,14 +27,16 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 //setting main as our default layout for app
 app.set("layout", "layouts/main");
+
+// middlewares
 // adding expresslayout middleware
 app.use(expressLayouts);
 // to serve static files
 app.use(express.static(path.join(__dirname, "public")));
-app.use(logger("dev"));
-app.use(methodOverride('_method'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(logger("dev")); // for logging dev info
+app.use(methodOverride('_method')); // for method overridng
+app.use(bodyParser.json()); // for parsing body 
+app.use(bodyParser.urlencoded({ extended: false })); 
 // importing mongoose library
 const mongoose = require("mongoose");
 

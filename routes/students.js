@@ -1,22 +1,24 @@
 const express = require('express');
-const { findByIdAndDelete } = require('../models/student');
 const router = express.Router();
-// importing student model
+// importing models
 const Student = require('../models/student')
+const Class = require('../models/class')
 
 // get all students details
 router.get('/', async (req, res) => {
   let searchQuery = {}
   if (req.query.name != null && req.query.name != ' ') {
     searchQuery.name = new RegExp(req.query.name, 'i')
-    console.log(searchQuery)
+    //console.log(searchQuery)
   }
   try {
-    const students = await Student.find(searchQuery)
-    res.render('students', {
+    let students = await Student.find(searchQuery)
+      .populate('class')
+      .exec();
+    res.render('students/index', {
       students: students,
       query: req.query
-    },
+    }
     )
   } catch {
     res.redirect('/')
@@ -26,31 +28,29 @@ router.get('/', async (req, res) => {
 
 
 // renders page for adding new student
-router.get('/new', (req, res) => {
-  res.render('new')
+router.get('/new', async(req, res) => {
+  let classes = await Class.find({})
+
+  // passing classes to view for choosing from existing classes
+  res.render('students/new', { classes: classes})
 })
 
 // route to add new student
 router.post('/', async(req, res) => {
-  let student = new Student({
-    name: req.body.name,
-    roll_no: req.body.rollNo,
-    class: req.body.class,
-    age: req.body.age,
-    gender: req.body.gender,
-    grade: req.body.grade
-  })
+  
   try {
-    const rollNo = await Student.find({ roll_no: req.body.rollNo })
-    if (rollNo === req.body.rollNo) {
-      res.render('/new', {errorMessage: 'Roll No. cannot be same'})
-    }
-    else {
+    let student = new Student({
+      name: req.body.name,
+      roll_no: req.body.rollNo,
+      class: req.body.class,
+      age: req.body.age,
+      gender: req.body.gender,
+      grade: req.body.grade
+    })
       await student.save()
-      res.redirect(`/students`)
-    }
+      res.redirect('/students')
   } catch {
-    res.redirect('students/new')
+    res.redirect('/students/new')
   }
 })
 
@@ -58,20 +58,21 @@ router.post('/', async(req, res) => {
 router.get('/details/:id', async(req, res) => {
   
   try {
-    const student = await Student.findById(req.params.id)
-    res.render('details', {student: student})
+    const student = await Student.findById(req.params.id).populate('class').exec()
+    res.render('students/details', {student: student})
   } catch {
     // if error redirect user to homepage
     res.redirect('/')
   }
 })
 
-
+// get edit page
 router.get('/edit/:id', async(req, res) => {
   
   try {
     const student = await Student.findById(req.params.id)
-    res.render('edit', {student: student})
+    const classes = await Class.find({})
+    res.render('students/edit', {student, classes})
   } catch {
     // if error redirect user to homepage
     res.redirect('/')
@@ -96,7 +97,7 @@ router.put('/:id', async(req, res) => {
   } catch {
     if(student == null) res.redirect('/')
     else {
-      res.render('edit', {
+      res.render('students/edit', {
         student: student,
         errorMessage: 'Roll No already in use'
       })
@@ -104,10 +105,12 @@ router.put('/:id', async(req, res) => {
   }
 })
 
-router.delete('/:id', (req, res) => {
-  const id = req.params.id;
-  Student.findByIdAndDelete(id).then(() => {
+router.delete('/:id', async (req, res) => {
+  
+  Student.findByIdAndDelete(req.params.id).then(() => {
     res.send('deleted')
   })
+  
+
 })
 module.exports = router;

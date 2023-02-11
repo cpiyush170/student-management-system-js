@@ -15,7 +15,7 @@ function deleteStudent() {
         })
         let data = await response.json()
         console.log(data)
-        window.location.reload()
+        window.location.reload();
       }
     }
   else{
@@ -25,15 +25,22 @@ function deleteStudent() {
   }
 }
 
+
+
 toggleActive() // to add active link indicator functionality
 function toggleActive() {
-  document.querySelectorAll('.nav-link')
-    .forEach(link => {
-      if (window.location.href === link.href) {
-        link.classList.add('active')
-        link.setAttribute('aria-current', 'page')
-        }
+  let links = document.querySelectorAll('.nav-link')
+
+  links.forEach(link => {
+    if (window.location.href === link.href) {
+      link.classList.add('active')
+      link.classList.add('aria-current', 'page')
+    }
   })
 }
 
-  
+
+
+
+
+

@@ -1,1 +1,1 @@
-# student-management-system-js
+# school-management-system

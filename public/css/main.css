@@ -10,6 +10,24 @@ body{
   --bs-gutter-y: 0;
 }
 
+
+.col{
+  background-color: #2a3648;
+  color: white;
+}
+
+/* .col .container:nth-child(2n+1){
+  
+  border-radius: 0.35rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+} */
+.col .container:nth-child(2n+2){
+  background-color: white;
+}
+
+
+
 .bg-main{
   background-color: #435d7d;
 }
