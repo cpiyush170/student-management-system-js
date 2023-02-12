@@ -1,0 +1,80 @@
+<div class="container mt-3 mb-2">
+  <form class="d-flex" role="search" action="/teachers" method="GET">
+    <input class="form-control form-control-lg me-2" type="search" name="name" value="<%= query.name %>" placeholder="Search.." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+  </form>
+</div>
+<div class="container">
+  <div class="container d-flex justify-content-between align-items-center bg-main p-3">
+    <div>
+    <h3 class="text-light display-5"><i class="fa-solid fa-person-chalkboard me-3"></i>Teachers</h3>
+  </div>
+    <div>
+    <a href="/teachers/new" class="btn btn-primary text-white fs-3">
+      <i class="bi bi-plus-circle me-2"></i>Add New Teacher</a>
+  </div>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="fs-4">
+        <th scope="col">FullName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Joined At</th>
+        <th scope="col">Options</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider options">
+      <% teachers.forEach(function(teacher) { %>
+      <tr class="fs-5">
+        <td><%= teacher.firstName+" "+teacher.lastName %></td>
+        <td><%= teacher.email %></td>
+        <td><%= teacher.age %></td>
+        <td><%= teacher.gender %></td>
+        <td><%= teacher.salary %></td>
+        <td><%= teacher.joined_at.toISOString().slice(0, 10) %></td>
+        <td>
+          <a class="text-primary mx-1" href="/teachers/details/<%=teacher.id %>"><i class="bi bi-eye-fill">View</i></a>
+          <a class="text-secondary mx-1" href="/teachers/edit/<%= teacher.id %> "><i class="bi bi-pen-fill">Edit</i></a>
+          <a class="text-danger mx-1" href=""><i data-id="<%= teacher.id %>" class="bi bi-trash3-fill">Delete</i></a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<script>
+  deleteTeacher() // to delete teacher
+function deleteTeacher() {
+  let options = document.querySelector('.options')
+  let deleteId;
+  if(options !== null){
+  options.onclick = async function(e){
+    deleteId = e.target.getAttribute('data-id')
+    console.log(deleteId)
+  // if data id exist on target, then only delete
+    if (deleteId !== null) {
+      if (confirm('Are you sure you want to delete ? ')) {
+        // delete the record only when ok is clicked
+        let url = `/teachers/${deleteId}`
+        let response = await fetch(url, {
+          method: 'DELETE'
+        })
+        let data = response.json();
+        if(data) window.location.reload();
+      }
+    }
+  else{
+    // when you cancel, do nothing
+  }
+  }
+  }
+}
+</script>
+
+

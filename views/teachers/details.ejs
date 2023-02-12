@@ -1,0 +1,13 @@
+<h3 class="text-center">Teacher Details</h3>
+
+<div class="container">
+  <ul>
+    <li><p class="fw-bold d-inline lead">FirstName: </p><p class="d-inline lead"><%= teacher.firstName %></p></li>
+    <li><p class="fw-bold d-inline lead">LastName: </p><p class="d-inline lead"><%=teacher.lastName %></p></li>
+    <li><p class="fw-bold d-inline lead">Email: </p><p class="d-inline lead"><%= teacher.email %></p></li>
+    <li><p class="fw-bold d-inline lead">Age: </p><p class="d-inline lead"><%= teacher.age%></p></li>
+    <li><p class="fw-bold d-inline lead">Gender: </p><p class="d-inline lead"><%= teacher.gender%></p></li>
+    <li><p class="fw-bold d-inline lead">Salary: </p><p class="d-inline lead"><%= teacher.salary%></p></li>
+    <li><p class="fw-bold d-inline lead">Joined At: </p><p class="d-inline lead"><%=teacher.joined_at.toISOString().slice(0, 10)%></p></li>
+  </ul>
+</div>
