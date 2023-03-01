@@ -2,11 +2,10 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const methodOverride = require('method-override')
+const methodOverride = require("method-override");
 const expressLayouts = require("express-ejs-layouts");
 const app = express();
-require('dotenv').config()
-
+require("dotenv").config();
 
 // specifying port for our application
 const port = process.env.PORT || 4000;
@@ -14,9 +13,9 @@ const port = process.env.PORT || 4000;
 // importing the routes
 const indexRoute = require("./routes/index");
 const studentRoutes = require("./routes/students");
-const classesRoutes = require("./routes/classes")
-const teachersRoutes = require("./routes/teachers")
-const subjectsRoutes = require("./routes/subjects")
+const classesRoutes = require("./routes/classes");
+const teachersRoutes = require("./routes/teachers");
+const subjectsRoutes = require("./routes/subjects");
 
 // view engine configuration
 // setting ejs as our view engine
@@ -34,15 +33,14 @@ app.use(expressLayouts);
 // to serve static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use(logger("dev")); // for logging dev info
-app.use(methodOverride('_method')); // for method overridng
-app.use(bodyParser.json()); // for parsing body 
-app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(methodOverride("_method")); // for method overridng
+app.use(bodyParser.json()); // for parsing body
+app.use(bodyParser.urlencoded({ extended: false }));
 // importing mongoose library
 const mongoose = require("mongoose");
 
-
 // uri for our mongodb atlas cluster coming from env
-let uri = process.env.MONGODB_URI
+let uri = process.env.MONGODB_URI;
 // to remove warning
 mongoose.set("strictQuery", false);
 // mongoose.connect(uri, options): it returns promise
@@ -64,7 +62,5 @@ app.use("/teachers", teachersRoutes);
 app.use("/subjects", subjectsRoutes);
 
 app.listen(port, () => {
-  console.log(`server is up on port ${port}`)
+  console.log(`server is up on port ${port}`);
 });
-
-
