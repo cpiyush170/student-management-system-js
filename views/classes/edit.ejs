@@ -1,13 +1,24 @@
 <h3 class="text-center mt-5">Edit Class Details</h3>
 
 <div class="container mt-3">
-<form action="/classes/<%= aClass.id %>?_method=PUT" method="post">
-<div class="form-floating mb-3">
-  <input type="text" class="form-control" name="name" id="name" value = <%= aClass.name %> placeholder="Class Name..." required>
-  <label for="name">Class Name</label>
-</div>
-  <div class="form-floating mb-3">
-    <button type="submit" class="form-control btn btn-dark p-0">UDPATE</button>
-  </div>
-</form>
+  <form action="/classes/<%= aClass.id %>?_method=PUT" method="post">
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        id="name"
+        value="<%"
+        ="aClass.name"
+        %
+      />
+      placeholder="Class Name..." required>
+      <label for="name">Class Name</label>
+    </div>
+    <div class="form-floating mb-3">
+      <button type="submit" class="form-control btn btn-dark p-0">
+        UPDATE
+      </button>
+    </div>
+  </form>
 </div>
