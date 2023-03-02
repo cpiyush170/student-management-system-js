@@ -36,7 +36,7 @@
         <td><%= teacher.gender %></td>
         <td><%= teacher.salary %></td>
         <td><%= teacher.joined_at.toISOString().slice(0, 10) %></td>
-        <td>
+        <td class="d-flex">
           <a class="text-primary mx-1" href="/teachers/details/<%=teacher.id %>"><i class="bi bi-eye-fill">View</i></a>
           <a class="text-secondary mx-1" href="/teachers/edit/<%= teacher.id %> "><i class="bi bi-pen-fill">Edit</i></a>
           <a class="text-danger mx-1" href=""><i data-id="<%= teacher.id %>" class="bi bi-trash3-fill">Delete</i></a>
