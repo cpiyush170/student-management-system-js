@@ -79,6 +79,7 @@ router.delete('/:id', async(req, res) => {
   let subject;
   try {
     subject = await Subject.findById(req.params.id);
+    console.log(subject)
     await subject.remove();
     res.json({redirect: '/subjects'})
     

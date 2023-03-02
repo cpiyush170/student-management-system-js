@@ -57,7 +57,7 @@ function deleteClass() {
         let response = await fetch(url, {
           method: 'DELETE'
         })
-        let data = response.json();
+        let data = await response.json();
         if(data) window.location.reload();
       }
     }

@@ -13,9 +13,10 @@ const subjectSchema = new Schema({
 
 subjectSchema.pre('remove', async function (next) {
 
-  let teachers = await Teacher.find({ subject: this.Subject.id })
+  const Subject = this;
+  const teachers = await Teacher.find({ subject: Subject._id });
   if (teachers.length > 0) {
-    next(new Error('Cannot delete subject with teachers'))
+    next(new Error('Cannot delete subject with teachers'));
   }
   else {
     next();
