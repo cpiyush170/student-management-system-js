@@ -2,7 +2,7 @@
 
 A full stack web application that lets you to automate and organize the day-to-day operations of a school. The project uses modern web technologies like HTML5, CSS3, Bootstrap, AJAX, JavaScript, NodeJS, Express and MongoDB.
 
-### Live demo: [https://school-management-system.cyclic.app](https://school-management-system.cyclic.app)
+### Live demo: [https://school-management-system-kzto.onrender.com](https://school-management-system-kzto.onrender.com)
 ## Installation
 Clone the repo and then
 use the [npm](https://www.npmjs.com/) package manager to start the project.
